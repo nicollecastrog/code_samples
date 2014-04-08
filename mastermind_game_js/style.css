@@ -1,0 +1,109 @@
+#container {
+  max-width: 960px;
+  margin: 20px auto;
+}
+
+.gray_circle {
+  display: inline;
+  float: left;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px; 
+  background-color: gray;
+  margin: 5px;
+}
+
+.white_circle {
+  display: inline;
+  float: left;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px; 
+  background-color: white;
+  margin: 5px;
+}
+
+.check_circle {
+  display: inline;
+  float: left;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px; 
+  background-color: gray;
+  margin: 2px;
+}
+
+#turns, #checks {
+  border-collapse: collapse;
+/*  margin: 0 auto;*/
+  background-color: black;
+  display: inline;
+  float: left;
+}
+
+td {
+  padding: 10px;
+}
+
+#turns tr, #checks tr {
+  border: 1px solid white;
+}
+
+#checks tr {
+  height: 61px; 
+  width: 74px;
+}
+
+/*#tbls {
+  display: block;
+  margin: 0 auto;
+}*/
+
+#options {
+  display: block;
+  clear: both;
+/*  width: 310px;*/
+  padding-top: 20px;
+}
+
+.circle {
+  display: inline;
+  float: left;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px; 
+  margin: 5px;
+}
+
+.purple {
+  background-color: #800080;
+}
+
+.lblue {
+  background-color: #87CEEB;
+}
+
+.red {
+  background-color: #FF0000;
+}
+
+.pink {
+  background-color: #DB7093;
+}
+
+.brown {
+  background-color: #A0522D;
+}
+
+.dblue {
+  background-color: #191970;
+}
+
+.hidden {
+  display: none;
+}
+
+.green {
+  background-color: green;
+}
+
