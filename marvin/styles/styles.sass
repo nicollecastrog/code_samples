@@ -1,0 +1,56 @@
+$grid-cell: 50px
+$main-font: 'Droid Sans', sans-serif
+
+=background-size($background-size)
+  -webkit-background-size: $background-size
+  -moz-background-size:    $background-size
+  -ms-background-size:     $background-size
+  background-size:         $background-size
+
+body
+  background: url("http://i.imgur.com/DS3RSwl.jpg")
+  background-position: center
+  background-attachment: fixed
+  +background-size(cover)
+  font-family: $main-font
+
+table, td
+  border-collapse: collapse
+  border: 1px solid black
+  background-color: white
+
+table td
+  height: $grid-cell
+  width: $grid-cell
+
+.arrow_box
+  position: absolute
+  left: 200px
+  background: #88b7d5
+  width: 20px
+  height: 20px
+
+.arrow_box:after
+  bottom: 100%
+  left: 50%
+  border: solid transparent
+  content: " "
+  height: 0
+  width: 0
+  position: absolute
+  pointer-events: none
+  border-color: rgba(136, 183, 213, 0)
+  border-bottom-color: #88b7d5
+  border-width: 20px
+  margin-left: -20px
+
+#goes_in p
+  padding: 10px
+  background-color: #2C8F0B
+  max-width: 60px
+  text-align: center
+  color: white
+
+
+
+
