@@ -2,7 +2,6 @@ var G = {};
 
 G.getInput = function getInput (inputValue) {
   var arrayOfLines = inputValue.match(/[^\r\n]+/g);
-  console.log(arrayOfLines);
   return arrayOfLines;
 }
 
@@ -23,6 +22,7 @@ G.getGrid = function getGrid (arrayOfLines) {
  
 G.getRobotPosition = function getRobotPosition(arrayOfLines) {
   var robotPosition = arrayOfLines[1].split(" ");
+  console.log(arrayOfLines[1]);
   for(i = robotPosition.length - 1; i >= 0; i--) {
     robotPosition[i] = robotPosition[i].replace(/\s/g,"");
       if (robotPosition[i] === "") {
