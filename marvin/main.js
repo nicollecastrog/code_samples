@@ -38,7 +38,7 @@ function placeRobot(inputArr, robotPosition){
   robot.className = 'arrow_box';
   $("#main").append(robot);
   if (robotPosition[2] == "N") {
-    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 160 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 155 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
   } else if (robotPosition[2] == "E") {
     $(".arrow_box").css({left: 45 + (robotPosition[0] * 53) + "px", top: 153.5 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
     $(".arrow_box").css({"-webkit-transform": "rotate(90deg)", "-ms-transform": "rotate(90deg)", "transform": "rotate(90deg)"});
@@ -53,26 +53,6 @@ function placeRobot(inputArr, robotPosition){
     alert("You must choose an appropriate direction for Marvin to face: N(orth), S(outh), E(ast), or W(est). Enter only the first letter of the direction you want.");
   }
 }
-
-// function turnLeft(direction){
-//   console.log("Going left");
-
-//   if (direction == "N"){
-//     $(".arrow_box").rotate({ startDeg:0, endDeg:-90, persist:true });
-//     direction = "W";
-//   } else if (direction == "E"){
-//     $(".arrow_box").rotate({ startDeg:-270, endDeg:-360, persist:true });
-//     direction = "N";
-//   } else if (direction == "S"){
-//     $(".arrow_box").rotate({ startDeg:180, endDeg:-270, persist:true });
-//     direction = "E";
-//   } else {
-//     $(".arrow_box").rotate({ startDeg:-90, endDeg:-180, persist:true });
-//     direction = "S";
-//   }
-//   console.log(direction + " is the new direction.");
-//   return direction
-// }
 
 function turnRight(value){
   console.log("Going right");
@@ -91,7 +71,36 @@ function turnLeft(value){
 };
 
 function goForward(value){
-  console.log("Going forward");
+  console.log("Inside goForward, the value is " + value);
+  if (value === 0 || value === -360 || value % 360 == 0 || value % -360 == 0){
+    console.log("Going forward");
+    $(".arrow_box").animate({
+      top: "-=50"
+    }, 1000, function() {
+      // Animation complete.
+    });
+  } else if (value === 90 || value === -270 || value % 450 == 0 || value % -450 == 0){
+    console.log("Going forward");
+    $(".arrow_box").animate({
+      left: "+=50"
+    }, 1000, function() {
+      // Animation complete.
+    });
+  } else if (value === 180 || value === -180 || value % 540 === 0 || value % -540 === 0){
+    console.log("Going forward");
+    $(".arrow_box").animate({
+      top: "+=50"
+    }, 1000, function() {
+      // Animation complete.
+    });
+  } else if (value === 270 || value === -90 || value % 630 === 0 || value % -630 === 0){
+    console.log("Going forward");
+    $(".arrow_box").animate({
+      left: "-=50"
+    }, 1000, function() {
+      // Animation complete.
+    });
+  }
 }
 
 function moveRobot(inputArr, robotInstructions, robotPosition){
@@ -115,7 +124,7 @@ function moveRobot(inputArr, robotInstructions, robotPosition){
     } else if (robotInstructions[i] == "R"){
       value = turnRight(value);
     } else if (robotInstructions[i] == "F"){
-      value = goForward(value);
+      goForward(value);
     }
   };
 }
