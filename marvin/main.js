@@ -9,7 +9,7 @@ function analyzeGrid(inputArr){
   } else {
     $("#main").empty();
     document.getElementById("inputTextarea").value = "";
-    alert("You must use numbers to define the upper-right corner of Mars");
+    alert("You must use numbers (no larger than 50) to define the upper-right coordinates of Mars");
   }
 }
 
@@ -34,7 +34,6 @@ function gridSetup(cols, rows) {
 }
 
 function placeRobot(inputArr, robotPosition){
-  console.log(robotPosition)
   var robot = document.createElement('div');
   robot.className = 'arrow_box';
   $("#main").append(robot);
@@ -55,16 +54,86 @@ function placeRobot(inputArr, robotPosition){
   }
 }
 
+// function turnLeft(direction){
+//   console.log("Going left");
+
+//   if (direction == "N"){
+//     $(".arrow_box").rotate({ startDeg:0, endDeg:-90, persist:true });
+//     direction = "W";
+//   } else if (direction == "E"){
+//     $(".arrow_box").rotate({ startDeg:-270, endDeg:-360, persist:true });
+//     direction = "N";
+//   } else if (direction == "S"){
+//     $(".arrow_box").rotate({ startDeg:180, endDeg:-270, persist:true });
+//     direction = "E";
+//   } else {
+//     $(".arrow_box").rotate({ startDeg:-90, endDeg:-180, persist:true });
+//     direction = "S";
+//   }
+//   console.log(direction + " is the new direction.");
+//   return direction
+// }
+
+function turnRight(value){
+  console.log("Going right");
+  value += 90;
+  $(".arrow_box").rotate({ endDeg: value, persist:true });
+  console.log(value + " is the new value.");
+  return value
+}
+
+function turnLeft(value){
+  console.log("Going left");
+  value -=90;
+  $(".arrow_box").rotate({ endDeg: value, persist:true });
+  console.log(value + " is the new value.");
+  return value
+};
+
+function goForward(value){
+  console.log("Going forward");
+}
+
+function moveRobot(inputArr, robotInstructions, robotPosition){
+  for (var i = 0; i <= robotInstructions.length - 1; i++) {
+    if (i == 0) {
+      var direction = robotPosition[2];
+      console.log(direction);
+      if (direction == "N"){
+        value = 0;
+      } else if (direction == "E"){
+        value = 90;
+      } else if (direction == "S"){
+        value = 180;
+      } else if (direction == "W") {
+        value = 270;
+      }
+    }
+
+    if (robotInstructions[i] == "L") {
+      value = turnLeft(value);
+    } else if (robotInstructions[i] == "R"){
+      value = turnRight(value);
+    } else if (robotInstructions[i] == "F"){
+      value = goForward(value);
+    }
+  };
+}
+
 function setup () {
   var $submit = $("#goes_in p");
 
   $submit.click(function() {
     var value = getValue();
-    var arrayOfLines = G.getInput(value);
-    var inputArr = G.getGrid(arrayOfLines);
+    var array = G.getInput(value);
+    var inputArr = G.getGrid(array);
     analyzeGrid(inputArr);
-    var robotPosition = G.getRobotPosition(arrayOfLines);
-    placeRobot(inputArr, robotPosition);
+    for (var i = array.length - 2; i >= 0; i -= 2) {
+      var robotPosition = G.getRobotPosition(array);
+      placeRobot(inputArr, robotPosition);
+      var robotInstructions = G.getRobotInstructions(array);
+      moveRobot(inputArr, robotInstructions, robotPosition);
+    };
   });
 
 };

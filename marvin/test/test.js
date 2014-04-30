@@ -16,6 +16,9 @@ describe('Grid', function(){
     it("getGrid(['5 cat', '4 4 E']) should equal null", function(){
       assert.deepEqual(G.getGrid(['5 cat', '4 4 E']), null);
     })
+    it("getGrid(['53 2', '4 4 E']) should equal null", function(){
+      assert.deepEqual(G.getGrid(['53 2', '4 4 E']), null);
+    })
     it("getRobotPosition(['5 2', '4 1 E']) should equal [4, 1, E]", function(){
       assert.deepEqual(G.getRobotPosition(['5 2', '4 1 E']), [4, 1, 'E']);
     })

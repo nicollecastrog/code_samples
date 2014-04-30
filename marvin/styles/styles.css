@@ -24,7 +24,7 @@ table td, table th {
 
 table td {
   height: 50px;
-  width: 50px; }
+  min-width: 50px; }
 
 .arrow_box {
   position: absolute;
