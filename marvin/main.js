@@ -38,15 +38,15 @@ function placeRobot(inputArr, robotPosition){
   robot.className = 'arrow_box';
   $("#main").append(robot);
   if (robotPosition[2] == "N") {
-    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 155 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
   } else if (robotPosition[2] == "E") {
-    $(".arrow_box").css({left: 45 + (robotPosition[0] * 53) + "px", top: 153.5 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 53) + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
     $(".arrow_box").css({"-webkit-transform": "rotate(90deg)", "-ms-transform": "rotate(90deg)", "transform": "rotate(90deg)"});
   } else if (robotPosition[2] == "S") {
-    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 150 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
     $(".arrow_box").css({"-webkit-transform": "rotate(180deg)", "-ms-transform": "rotate(180deg)", "transform": "rotate(180deg)"});
   } else if (robotPosition[2] == "W") {
-    $(".arrow_box").css({left: 52 + (robotPosition[0] * 53) + "px", top: 153.5 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+    $(".arrow_box").css({left: 48.5 + (robotPosition[0] * 53) + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
     $(".arrow_box").css({"-webkit-transform": "rotate(270deg)", "-ms-transform": "rotate(270deg)", "transform": "rotate(270deg)"});
   } else {
     robot.parentNode.removeChild(robot);
@@ -129,21 +129,51 @@ function moveRobot(inputArr, robotInstructions, robotPosition){
   };
 }
 
+function showOutput(array){
+  $("#comes_out").empty();
+
+  $("#comes_out").append("<h4>OUTPUT: </h4>");
+
+  var output = document.createElement('ul');
+  output.className = 'output';
+  $("#comes_out").append(output);
+
+  var c = 1;
+  for (var i = 0; i <= array.length - 1; i++) {
+    if (i == 0){
+      $(".output").append('<li>The upper-right corner of mars ends at: ' + array[i] + '</li>');
+    } else if (i != 0 && i % 2 == 0){
+      $(".output").append("<li>Robot " + c + "'s starting position: " + array[i] + "</li>");
+    } else if (i != 0){
+      $(".output").append("<li>Robot " + c + "'s instructions: " + array[i] + "</li>");
+      c += 1;
+    }
+  };
+
+
+  $("#comes_out").append(output);
+}
+
 function setup () {
   var $submit = $("#goes_in p");
 
   $submit.click(function() {
+
     var value = getValue();
     var array = G.getInput(value);
     var inputArr = G.getGrid(array);
     analyzeGrid(inputArr);
+    var newArray = array;
     for (var i = array.length - 2; i >= 0; i -= 2) {
-      var robotPosition = G.getRobotPosition(array);
+      var robotPosition = G.getRobotPosition(newArray);
       placeRobot(inputArr, robotPosition);
-      var robotInstructions = G.getRobotInstructions(array);
+      var robotInstructions = G.getRobotInstructions(newArray);
       moveRobot(inputArr, robotInstructions, robotPosition);
+      newArray = G.removeFromMainArray;
     };
-  });
+    showOutput(array);
+
+  }); //end of $submit.click
 
 };
 

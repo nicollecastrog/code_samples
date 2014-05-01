@@ -28,10 +28,12 @@ G.getRobotPosition = function getRobotPosition(arrayOfLines) {
     robotPosition[i] = robotPosition[i].replace(/\s/g,"");
       if (robotPosition[i] === "") {
           robotPosition.splice(i,1);
-      } else if ( isNaN(parseInt(robotPosition[i])) ){
+      } else if ( (isNaN(parseInt(robotPosition[i])) && (robotPosition[i] === "N" || robotPosition[i] === "S" || robotPosition[i] === "E" || robotPosition[i] === "W")) ){
           robotPosition[i] = robotPosition[i];
+      } else if ((parseInt(robotPosition[i])) <= 50){
+        robotPosition[i] = parseInt(robotPosition[i]);
       } else {
-          robotPosition[i] = parseInt(robotPosition[i]);
+        robotPosition = null;
       }
   }
   return robotPosition;
@@ -50,13 +52,6 @@ G.getRobotInstructions = function getRobotInstructions(arrayOfLines) {
       }
   }
   return robotInstructions;
-}
-
-G.addToOutput = function addToOutput(arrayOfLines) {
-  var output = [];
-  output.push(arrayOfLines[1]);
-  output.push(arrayOfLines[2]);
-  return output;
 }
 
 G.removeFromMainArray = function removeFromMainArray(arrayOfLines) {
