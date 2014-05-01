@@ -66,44 +66,50 @@ function turnLeft(value){
   console.log("Going left");
   value -=90;
   $(".arrow_box").rotate({ endDeg: value, persist:true });
-  console.log(value + " is the new value.");
   return value
 };
 
-function goForward(value){
-  console.log("Inside goForward, the value is " + value);
+function goForward(value, endPosition){
   if (value === 0 || value === -360 || value % 360 == 0 || value % -360 == 0){
-    console.log("Going forward");
     $(".arrow_box").animate({
       top: "-=50"
     }, 1000, function() {
-      // Animation complete.
+      //end of animation
     });
+    endPosition[1] -= 1; 
+    endPosition[2] = "N";
+
   } else if (value === 90 || value === -270 || value % 450 == 0 || value % -450 == 0){
-    console.log("Going forward");
     $(".arrow_box").animate({
       left: "+=50"
     }, 1000, function() {
-      // Animation complete.
+      //end of animation
     });
+    endPosition[0] += 1;
+    endPosition[2] = "E";
   } else if (value === 180 || value === -180 || value % 540 === 0 || value % -540 === 0){
-    console.log("Going forward");
     $(".arrow_box").animate({
       top: "+=50"
     }, 1000, function() {
-      // Animation complete.
+      //end of animation
     });
+    endPosition[1] += 1;
+    endPosition[2] = "S";
   } else if (value === 270 || value === -90 || value % 630 === 0 || value % -630 === 0){
-    console.log("Going forward");
     $(".arrow_box").animate({
       left: "-=50"
     }, 1000, function() {
-      // Animation complete.
+      //end of animation
     });
+    endPosition[0] -= 1;
+    endPosition[2] = "W";
   }
+  console.log(endPosition);
+  return endPosition;
 }
 
-function moveRobot(inputArr, robotInstructions, robotPosition){
+function moveRobot(inputArr, robotInstructions, robotPosition, endPosition){
+
   for (var i = 0; i <= robotInstructions.length - 1; i++) {
     if (i == 0) {
       var direction = robotPosition[2];
@@ -124,12 +130,13 @@ function moveRobot(inputArr, robotInstructions, robotPosition){
     } else if (robotInstructions[i] == "R"){
       value = turnRight(value);
     } else if (robotInstructions[i] == "F"){
-      goForward(value);
+      endPosition = goForward(value, endPosition);
     }
   };
+  return endPosition;
 }
 
-function showOutput(array){
+function showOutput(array, endPositionArr){
   $("#comes_out").empty();
 
   $("#comes_out").append("<h4>OUTPUT: </h4>");
@@ -140,18 +147,23 @@ function showOutput(array){
 
   var c = 1;
   for (var i = 0; i <= array.length - 1; i++) {
+    var robotEndArr = endPositionArr[c-1]
+    var robotEnd = robotEndArr.join(" ");
     if (i == 0){
       $(".output").append('<li>The upper-right corner of mars ends at: ' + array[i] + '</li>');
     } else if (i != 0 && i % 2 == 0){
-      $(".output").append("<li>Robot " + c + "'s starting position: " + array[i] + "</li>");
+        if (robotEndArr[0] < 0 || robotEndArr[1] <0){
+          $(".output").append("<li>Robot " + c + "'s final position: " + robotEnd + " LOST</li>");
+          c += 1;
+        } else {
+          $(".output").append("<li>Robot " + c + "'s final position: " + robotEnd + "</li>");
+          c += 1;
+        } 
     } else if (i != 0){
-      $(".output").append("<li>Robot " + c + "'s instructions: " + array[i] + "</li>");
-      c += 1;
+      $(".output").append("<li>Robot " + c + "'s starting position: " + array[i] + "</li>");
     }
   };
 
-
-  $("#comes_out").append(output);
 }
 
 function setup () {
@@ -164,14 +176,18 @@ function setup () {
     var inputArr = G.getGrid(array);
     analyzeGrid(inputArr);
     var newArray = array;
+    var endPositionArr = [];
+    console.log("The main array is " + array);
     for (var i = array.length - 2; i >= 0; i -= 2) {
       var robotPosition = G.getRobotPosition(newArray);
       placeRobot(inputArr, robotPosition);
       var robotInstructions = G.getRobotInstructions(newArray);
-      moveRobot(inputArr, robotInstructions, robotPosition);
+      var endPosition = robotPosition;
+      endPosition = moveRobot(inputArr, robotInstructions, robotPosition, endPosition);
+      endPositionArr.push(endPosition);
       newArray = G.removeFromMainArray;
     };
-    showOutput(array);
+    showOutput(array, endPositionArr);
 
   }); //end of $submit.click
 
