@@ -1,8 +1,7 @@
 var G = {};
 
 G.getInput = function getInput (inputValue) {
-  var arrayOfLines = inputValue.match(/[^\r\n]+/g);
-  return arrayOfLines;
+  return inputValue.match(/[^\r\n]+/g);
 }
 
 G.getGrid = function getGrid (arrayOfLines) {

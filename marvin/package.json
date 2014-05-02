@@ -1,0 +1,30 @@
+{
+  "name": "marvin",
+  "version": "0.0.0",
+  "description": "A simple game/code test to determine Marvin the Robot's position within a flat, grid-like version of Mars.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "expect.js": "~0.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "make test",
+    "mocha": "1.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicollecastrog/code_samples/tree/master/marvin"
+  },
+  "keywords": [
+    "codetest",
+    "code",
+    "test",
+    "red",
+    "badger"
+  ],
+  "author": "Nicolle Castro",
+  "license": "ISC"
+}

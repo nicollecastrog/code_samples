@@ -1,6 +1,5 @@
 function getValue(){
-  this.inputValue = $("#inputTextarea").val().toString();
-  return inputValue;
+  return $("#inputTextarea").val().toString();;
 }
 
 function analyzeGrid(inputArr){
@@ -39,6 +38,10 @@ function gridSetup(cols, rows) {
   }
 }
 
+function setRobotCSS(robotPosition, inputArr, robot){
+  $("#" + robot.id).css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+}
+
 function placeRobot(inputArr, robotPosition){
   var robot = document.createElement('div');
   robot.className = 'arrow_box';
@@ -47,16 +50,20 @@ function placeRobot(inputArr, robotPosition){
   $("#main").append(robot);
   var myRobot = document.getElementById(robot.id);
   if (robotPosition[2] == "N") {
-    $("#" + robot.id).css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
+    $("#" + robot.id).addClass("placed");
+    setRobotCSS(robotPosition, inputArr, robot);
   } else if (robotPosition[2] == "E") {
-    $("#" + robot.id).css({left: 48.5 + (robotPosition[0] * 53) + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
-    $("#" + robot.id).css({"-webkit-transform": "rotate(90deg)", "-ms-transform": "rotate(90deg)", "transform": "rotate(90deg)"});
+    $("#" + robot.id).addClass("placed");
+    setRobotCSS(robotPosition, inputArr, robot);
+    $("#" + robot.id).addClass("east");
   } else if (robotPosition[2] == "S") {
-    $("#" + robot.id).css({left: 48.5 + (robotPosition[0] * 52) + robotPosition[0] + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
-    $("#" + robot.id).css({"-webkit-transform": "rotate(180deg)", "-ms-transform": "rotate(180deg)", "transform": "rotate(180deg)"});
+    $("#" + robot.id).addClass("placed");
+    setRobotCSS(robotPosition, inputArr, robot);
+    $("#" + robot.id).addClass("south");
   } else if (robotPosition[2] == "W") {
-    $("#" + robot.id).css({left: 48.5 + (robotPosition[0] * 53) + "px", top: 268 + ((inputArr[1] * 50) - (robotPosition[1] * 50)) +"px"});
-    $("#" + robot.id).css({"-webkit-transform": "rotate(270deg)", "-ms-transform": "rotate(270deg)", "transform": "rotate(270deg)"});
+    $("#" + robot.id).addClass("placed");
+    setRobotCSS(robotPosition, inputArr, robot);
+    $("#" + robot.id).addClass("west");
   } else {
     robot.parentNode.removeChild(robot);
     alert("You must choose an appropriate direction for Marvin to face: N(orth), S(outh), E(ast), or W(est). Enter only the first letter of the direction you want.");
@@ -67,17 +74,34 @@ function placeRobot(inputArr, robotPosition){
 function turnRight(value, robot){
   value += 90;
   $("#" + robot.id).rotate({ endDeg: value, persist:true });
-  return value
+  return value;
 }
 
 function turnLeft(value, robot){
   value -=90;
   $("#" + robot.id).rotate({ endDeg: value, persist:true });
-  return value
+  return value;
 };
 
+function resetValue(value){
+  if (value == 0 || value == -360 || value % 360 == 0 || value % -360 == 0){
+    value = 0;
+    return value;
+  } else if (value == 90 || value == -270 || value % 450 == 0 || value % -450 == 0){
+    value = 90;
+    return value;
+  } else if (value == 180 || value == -180 || value % 540 == 0 || value % -540 == 0){
+    value = 180;
+    return value;
+  } else if (value == 270 || value == -90 || value % 630 == 0 || value % -630 == 0){
+    value = 270;
+    return value;
+  }
+}
+
 function goForward(value, endPosition, robot){
-  if (value === 0 || value === -360 || value % 360 == 0 || value % -360 == 0){
+  value = resetValue(value);
+  if (value == 0){
     $("#" + robot.id).animate({
       top: "-=50"
     }, 1000, function() {
@@ -86,7 +110,7 @@ function goForward(value, endPosition, robot){
     endPosition[1] += 1; 
     endPosition[2] = "N";
 
-  } else if (value === 90 || value === -270 || value % 450 == 0 || value % -450 == 0){
+  } else if (value == 90){
     $("#" + robot.id).animate({
       left: "+=50"
     }, 1000, function() {
@@ -94,7 +118,7 @@ function goForward(value, endPosition, robot){
     });
     endPosition[0] += 1;
     endPosition[2] = "E";
-  } else if (value === 180 || value === -180 || value % 540 === 0 || value % -540 === 0){
+  } else if (value == 180){
     $("#" + robot.id).animate({
       top: "+=50"
     }, 1000, function() {
@@ -102,7 +126,7 @@ function goForward(value, endPosition, robot){
     });
     endPosition[1] -= 1;
     endPosition[2] = "S";
-  } else if (value === 270 || value === -90 || value % 630 === 0 || value % -630 === 0){
+  } else if (value == 270){
     $("#" + robot.id).animate({
       left: "-=50"
     }, 1000, function() {
