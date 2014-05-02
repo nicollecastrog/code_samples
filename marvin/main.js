@@ -116,6 +116,7 @@ function goForward(value, endPosition, robot){
 
 function moveRobot(inputArr, robotInstructions, robotPosition, endPosition, robot, fences){
   var gridArr = inputArr;
+  var $robot = $("#" + robot.id);
   console.log("inside moveRobot");
 
   for (var i = 0; i <= robotInstructions.length - 1; i++) {
@@ -162,15 +163,31 @@ function moveRobot(inputArr, robotInstructions, robotPosition, endPosition, robo
         } else if (fenceCheck == false){
             if (endPosition[0] <= 0 && endPosition[2] == "W"){
                 fences.push(endPosition);
+                $robot.addClass("lost");
+                $robot.fadeTo( "fast" , 0.5, function() {
+                  // Animation complete.
+                });
                 return endPosition;
             } else if (endPosition[1] <= 0 && endPosition[2] == "S"){
                 fences.push(endPosition);
+                $robot.addClass("lost");
+                $robot.fadeTo( "fast" , 0.5, function() {
+                  // Animation complete.
+                });
                 return endPosition;
             } else if (endPosition[0] >= gridArr[0] && endPosition[2] == "E"){
                 fences.push(endPosition);
+                $robot.addClass("lost");
+                $robot.fadeTo( "fast" , 0.5, function() {
+                  // Animation complete.
+                });
                 return endPosition;
             } else if (endPosition[1] >= gridArr[1] && endPosition[2] == "N"){
                 fences.push(endPosition);
+                $robot.addClass("lost");
+                $robot.fadeTo( "fast" , 0.5, function() {
+                  // Animation complete.
+                });
                 return endPosition;
             } else {
               endPosition = goForward(value, endPosition, robot);
@@ -188,24 +205,26 @@ function checkFences(endPosition, fences){
   var fenceCheck = false;
   for (var j = fences.length - 1; j >= 0; j--) {
       console.log("determining if the current endPosition matches a fence");
-      if (fences[j] === endPosition){
+      console.log("The current fence is: " + fences[j]);
+      console.log("The current endPosition is: " + endPosition);
+      var a = fences[j].toString();
+      var b = endPosition.toString();
+      if (a == b){
         var fenceCheck = true;
-        console.log("The fenceBoolean at " + endPosition + " is true.")
       }
   } // end of for loop
   return fenceCheck;
 } // end of checkFences
 
-function showOutput(newArray, endPosition, inputArr, c){
+function showOutput(newArray, endPosition, inputArr, c, robot){
   console.log("The endPosition is: " + endPosition);
   var gridArr = inputArr;
   var robotEnd = endPosition.join(" ");
+  var $robot = $("#" + robot.id);
 
   for (var i = 0; i <= newArray.length - 1; i++) {
     if (i == 2){
-        if (endPosition[0] < 0 || endPosition[1] < 0){
-          $(".output").append("<li>Robot " + c + "'s final position: " + robotEnd + " LOST</li>");
-        } else if (endPosition[0] > gridArr[0] || endPosition[1] > gridArr[1]){
+        if ($robot.hasClass("lost")){
           $(".output").append("<li>Robot " + c + "'s final position: " + robotEnd + " LOST</li>");
         } else {
           $(".output").append("<li>Robot " + c + "'s final position: " + robotEnd + "</li>");
@@ -240,7 +259,7 @@ function setup () {
       var robotInstructions = G.getRobotInstructions(newArray);
       var endPosition = robotPosition;
       endPosition = moveRobot(inputArr, robotInstructions, robotPosition, endPosition, robot, fences);
-      showOutput(newArray, endPosition, inputArr, c);
+      showOutput(newArray, endPosition, inputArr, c, robot);
 
       if (array.length > 3){
         newArray = G.removeFromMainArray(newArray);

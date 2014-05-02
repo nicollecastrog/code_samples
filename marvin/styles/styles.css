@@ -68,7 +68,8 @@ table td {
   background-color: white;
   margin: 0px;
   font-size: 11px;
-  line-height: 1.3em; }
+  line-height: 2em;
+  overflow: auto; }
   #comes_out h4 {
     margin: 0px; }
   #comes_out ul {
