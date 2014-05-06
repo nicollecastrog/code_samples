@@ -3,8 +3,13 @@
   <title>Marvin</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script type="text/javascript" src="rotatePlugin.js"></script>
-  <script type="text/javascript" src="index.js"></script>
-  <script type="text/javascript" src="main.js"></script>
+  <script src="bundle.js"></script>
+  <script>
+    // Require the `G` module inside of `bundle.js`
+    var G = require('./index.js');
+    // G.start();
+  </script>
+  <script src="main.js"></script>
   <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 <body>
