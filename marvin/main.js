@@ -11,7 +11,7 @@ function analyzeGrid(inputArr){
     alert("You must use numbers (no larger than 50) to define the upper-right coordinates of Mars");
   }
   $("#comes_out").empty();
-  $("#comes_out").append("<h4>OUTPUT: </h4>");
+  $("#comes_out").append("<h4>Output: </h4>");
   var output = document.createElement('ul');
   output.className = 'output';
   $("#comes_out").append(output);

@@ -13,8 +13,25 @@
   <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 <body>
+    <div id="instructions">
+    <h4>Instructions:</h4>
+    <p>The surface of Mars can be modelled by a rectangular grid around which robots are able to move according to instructions provided from Earth.<br><br>The first row of the input (the square to the left) should be x,y coordinates that delimitate the upper-right corner of Mars (we can assume that the bottom-left corner of Mars is represented by the coordinates 0,0).<br><br>
+    The next line of the input should indicate Marvin the Robot's initial position (x y D), where "D" indicates the direction he's facing: (N)orth, (S)outh, (E)ast, or (W)est.<br><br>
+    The final row gives Marvin instructions to follow, and he accordingly moves (L)eft, (R)ight, or (F)orward.<br><br>
+    Since the grid is rectangular and bounded (yes Mars is a strange planet), a robot that moves &quot;off&quot; an edge of the grid is lost forever. However, lost robots leave a robot &quot;scent&quot; that prohibits future robots from dropping off the world at the same grid point. The scent is left at the last grid position the robot occupied before disappearing over the edge. An instruction to move &quot;off&quot; the world from a grid point from which a robot has been previously lost is simply ignored by the current robot.<br><br>
+    Sample Input (with each robot separated by an extra line):<br>
+    5 3<br>
+    1 1 E<br>
+    RFRFRFRF<br><br>
+    3 2 N<br>
+    FRRFLLFFRRFLL<br><br>
+    0 3 W<br>
+    LLFFFLFLFL
+    </p>
+  </div>
+
   <div id="goes_in">
-    <textarea id="inputTextarea"></textarea>
+    <textarea id="inputTextarea" placeholder="Input: give Marvin instructions"></textarea>
     <p>Submit</p>
   </div>
 

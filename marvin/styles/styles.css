@@ -10,6 +10,7 @@ body {
 
 .grid_wrapper {
   margin: 25px;
+  margin-top: 45px;
   padding: 25px;
   background-color: white;
   opacity: 0.8;
@@ -48,33 +49,42 @@ table td {
 
 #goes_in {
   display: inline-block;
-  float: left; }
+  float: left;
+  margin-right: 10px; }
   #goes_in textarea {
-    height: 150px; }
+    height: 150px;
+    border: none;
+    margin: 0px; }
   #goes_in p {
     padding: 10px;
     background-color: #5cc909;
     max-width: 60px;
+    margin: 0 auto;
+    margin-top: 10px;
     text-align: center;
     color: white; }
   #goes_in p:hover {
     cursor: hand; }
 
-#comes_out {
+#comes_out, #instructions {
   display: inline-block;
   width: 300px;
-  height: 150px;
+  height: 130px;
   padding: 10px;
   background-color: white;
   margin: 0px;
   font-size: 11px;
   line-height: 2em;
   overflow: auto; }
-  #comes_out h4 {
+  #comes_out h4, #instructions h4 {
     margin: 0px; }
-  #comes_out ul {
+  #comes_out ul, #instructions ul {
     list-style-type: none;
     padding-left: 0px; }
+
+#instructions {
+  margin-right: 10px;
+  float: left; }
 
 #main {
   display: block;
