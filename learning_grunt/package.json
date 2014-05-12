@@ -1,0 +1,39 @@
+{
+  "name": "learning_grunt",
+  "description": "The best project ever.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/nicollecastrog/code_samples",
+  "author": {
+    "name": "nicollecastrog",
+    "email": "nicollecastrog@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nicollecastrog/code_samples.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicollecastrog/code_samples/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/nicollecastrog/code_samples/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/learning_grunt",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.4.0",
+    "grunt": "~0.4.4"
+  },
+  "keywords": []
+}
