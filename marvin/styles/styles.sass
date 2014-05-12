@@ -11,6 +11,12 @@ $move-y: 50px
   -ms-background-size:     $background-size
   background-size:         $background-size
 
+=transform($transform)
+  -webkit-transform:  $transform
+  -moz-transform:     $transform
+  -ms-transform:      $transform
+  transform:          $transform
+
 body
   background: url("http://i.imgur.com/DS3RSwl.jpg")
   background-position: center
@@ -103,19 +109,13 @@ table td
   clear: both
 
 .east
-  -webkit-transform: rotate(90deg)
-  -ms-transform: rotate(90deg)
-  transform: rotate(90deg)
+  +transform(rotate(90deg))
 
 .south
-  -webkit-transform: rotate(180deg)
-  -ms-transform: rotate(180deg)
-  transform: rotate(180deg)
+  +transform(rotate(180deg))
 
 .west
-  -webkit-transform: rotate(270deg)
-  -ms-transform: rotate(270deg)
-  transform: rotate(270deg)
+  +transform(rotate(270deg))
 
 
 
