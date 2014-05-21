@@ -11,7 +11,8 @@
     "zombie": "^2.0.0-alpha31"
   },
   "devDependencies": {
-    "mocha": "1.18.2"
+    "mocha": "1.18.2",
+    "dalekjs": "0.0.8"
   },
   "scripts": {
     "test": "make test"
