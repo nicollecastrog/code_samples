@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>Learning Require JS</title>
+  <script>
+    var require = {
+      shim: {
+        'jquery-2.1.1.min': {
+          exports: 'jQuery'
+        }
+      }
+    };
+  </script>
+  <script data-main="main" src="require.js"></script>
+</head>
+<body>
+  <input type="text" id="num1">
+  <input type="text" id="num2">
+  <button id="answer">Sum</button>
+
+  <textarea id="result"></textarea>
+</body>
+</html>
