@@ -1,4 +1,4 @@
-require(["calculator", "jquery-2.1.1.min"], function(calc, $){
+require(["calculator", "jQuery"], function(calc, $){
   console.log($);
   $("#answer").on("click", function(event){
     var num1 = parseInt($("#num1").val());
