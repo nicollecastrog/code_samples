@@ -1,8 +1,14 @@
 <html>
 <head>
   <title>Learning Require JS</title>
-  <script src="config.js"></script>
-  <script data-main="main" src="require.js"></script>
+  <!-- DEV SCRIPTS-->
+  <!--<script src="config.js"></script>
+  <script data-main="main" src="require.js"></script>-->
+
+  <!-- PRODUCTION SCRIPTS -->
+  <!-- note: you only need one script on production if you've added require itself to build.js, using wrap-->
+  <script src="main-built.js"></script>
+
 </head>
 <body>
   <input type="text" id="num1">
