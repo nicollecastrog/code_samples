@@ -1,26 +1,39 @@
-/*global module:false*/
+'use strict';
+
 module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
     // Metadata.
-    meta: {
-      version: '0.1.0'
-    },
-    banner: '/*! PROJECT_NAME - v<%= meta.version %> - ' +
+    pkg: grunt.file.readJSON('marvin_2.0.jquery.json'),
+    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '* http://PROJECT_WEBSITE/\n' +
-      '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
-      'YOUR_NAME; Licensed MIT */\n',
+      '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
+    clean: {
+      files: ['dist']
+    },
     concat: {
       options: {
         banner: '<%= banner %>',
         stripBanners: true
       },
       dist: {
-        src: ['lib/FILE_NAME.js'],
-        dest: 'dist/FILE_NAME.js'
+        src: ['src/jquery.<%= pkg.name %>.js'],
+        dest: 'dist/jquery.<%= pkg.name %>.js'
+      },
+    },
+    compass: {
+      dev: {
+        options: {
+          sassDir: 'sass',
+          cssDir: 'stylesheets',
+          imagesDir: 'images',
+          environment: 'development',
+          httpGeneratedImagesPath: 'images'
+        }
       }
     },
     uglify: {
@@ -29,56 +42,57 @@ module.exports = function(grunt) {
       },
       dist: {
         src: '<%= concat.dist.dest %>',
-        dest: 'dist/FILE_NAME.min.js'
-      }
+        dest: 'dist/jquery.<%= pkg.name %>.min.js'
+      },
+    },
+    qunit: {
+      files: ['test/**/*.html']
     },
     jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        unused: true,
-        boss: true,
-        eqnull: true,
-        globals: {
-          jQuery: true
-        }
-      },
       gruntfile: {
+        options: {
+          jshintrc: '.jshintrc'
+        },
         src: 'Gruntfile.js'
       },
-      lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
-      }
-    },
-    nodeunit: {
-      files: ['test/**/*_test.js']
+      src: {
+        options: {
+          jshintrc: 'src/.jshintrc'
+        },
+        src: ['src/**/*.js']
+      },
+      test: {
+        options: {
+          jshintrc: 'test/.jshintrc'
+        },
+        src: ['test/**/*.js']
+      },
     },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
       },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'nodeunit']
-      }
-    }
+      src: {
+        files: '<%= jshint.src.src %>',
+        tasks: ['jshint:src', 'qunit']
+      },
+      test: {
+        files: '<%= jshint.test.src %>',
+        tasks: ['jshint:test', 'qunit']
+      },
+    },
   });
 
   // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'nodeunit', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
 
 };

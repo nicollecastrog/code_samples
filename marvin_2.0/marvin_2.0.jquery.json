@@ -1,0 +1,26 @@
+{
+  "name": "marvin_2.0",
+  "title": "Marvin 2.0",
+  "description": "Code sample for interview, now applying skills I've learned since joining the company.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/nicollecastrog/code_samples",
+  "author": {
+    "name": "nicollecastrog",
+    "email": "nicollecastrog@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nicollecastrog/code_samples.git"
+  },
+  "bugs": "https://github.com/nicollecastrog/code_samples/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/nicollecastrog/code_samples/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
