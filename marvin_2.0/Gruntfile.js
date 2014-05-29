@@ -15,6 +15,17 @@ module.exports = function(grunt) {
     clean: {
       files: ['dist']
     },
+    compass: {   // this is a task
+      dev: {     // this is a target of said task
+        options: {
+          sassDir: 'sass',
+          cssDir: 'stylesheets',
+          imagesDir: 'images',
+          environment: 'development',
+          httpGeneratedImagesPath: 'images'
+        }
+      }
+    },
     concat: {
       options: {
         banner: '<%= banner %>',
@@ -24,17 +35,6 @@ module.exports = function(grunt) {
         src: ['src/jquery.<%= pkg.name %>.js'],
         dest: 'dist/jquery.<%= pkg.name %>.js'
       },
-    },
-    compass: {
-      dev: {
-        options: {
-          sassDir: 'sass',
-          cssDir: 'stylesheets',
-          imagesDir: 'images',
-          environment: 'development',
-          httpGeneratedImagesPath: 'images'
-        }
-      }
     },
     uglify: {
       options: {
@@ -86,6 +86,7 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-qunit');
@@ -93,6 +94,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify', 'compass:dev']);
 
 };
